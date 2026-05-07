@@ -1,0 +1,22 @@
+{
+  "name": "playwright-ts-ecommerce-framework",
+  "version": "1.0.0",
+  "description": "Scalable Playwright TypeScript automation framework with UI and API testing for ecommerce applications using Page Object Model, fixtures, CI/CD, and reporting.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramyasree1505/playwright-ts-ecommerce-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramyasree1505/playwright-ts-ecommerce-framework/issues"
+  },
+  "homepage": "https://github.com/ramyasree1505/playwright-ts-ecommerce-framework#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0"
+  }
+}
