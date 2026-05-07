@@ -1,6 +1,9 @@
 import dotenv from 'dotenv';
 
-dotenv.config({ path: './config/env.qa' });
+// Load local env file only when NOT running in CI
+if (!process.env.CI) {
+  dotenv.config({ path: './config/env.qa' });
+}
 
 const parseNumber = (
   value: string | undefined,
@@ -12,15 +15,22 @@ const parseNumber = (
 
 export const BROWSER = process.env.BROWSER || 'chrome';
 
-export const RETRIES =parseNumber(process.env.RETRIES, 0);
+export const RETRIES = parseNumber(process.env.RETRIES, 0);
 
-export const PARALLEL_THREAD = parseNumber(process.env.PARALLEL_THREAD, 3);
+export const PARALLEL_THREAD = parseNumber(
+  process.env.PARALLEL_THREAD,
+  3
+);
 
 export const BASE_URL = process.env.BASE_URL!;
 
-export const Timeout = parseNumber(process.env.Timeout, 30000);
+export const Timeout = parseNumber(
+  process.env.Timeout,
+  30000
+);
 
-export const REST_API_BASE_URL = process.env.REST_API_BASE_URL!;
+export const REST_API_BASE_URL =
+  process.env.REST_API_BASE_URL!;
 
 export const env = {
   BROWSER,
