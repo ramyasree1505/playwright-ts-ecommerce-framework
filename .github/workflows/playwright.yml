@@ -31,14 +31,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
       - name: Install Allure
         run: npm install -g allure-commandline
 
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Run Playwright Tests
-        run: npx playwright test
         env:
           CI: true
           BROWSER: ${{ matrix.browser }}
@@ -47,6 +48,9 @@ jobs:
           BASE_URL: https://rahulshettyacademy.com/client/#/auth/login
           REST_API_BASE_URL: https://rahulshettyacademy.com/client
           Timeout: 30000
+          PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
+
+        run: npx playwright test --config=playwright.service.config.ts --workers=2
 
       - name: Generate Allure Report
         if: always()
@@ -58,3 +62,12 @@ jobs:
         with:
           name: allure-report-${{ matrix.browser }}
           path: allure-report/
+
+      - name: Upload Allure Report to Azure Blob
+        if: always()
+        run: |
+          az storage blob upload-batch \
+            --account-name pwrrdaaf6 \
+            --destination reports \
+            --source allure-report \
+            --auth-mode login
