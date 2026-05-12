@@ -23,6 +23,8 @@ export default defineConfig(
     */
     reporter: [
       ["html", { open: "never" }],
+      ['line'],
+      ['allure-playwright'],
       ["@azure/playwright/reporter"],
     ],
   }
