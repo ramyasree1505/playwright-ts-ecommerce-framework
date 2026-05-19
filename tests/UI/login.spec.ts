@@ -8,7 +8,7 @@ test.describe('Login Page Tests', () => {
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    await loginPage.goto(BASE_URL);
+    await loginPage.goto(BASE_URL); 
   });
 
   // Grouping tests related to login form visibility and elements

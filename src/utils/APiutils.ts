@@ -1,4 +1,4 @@
-import { APIRequestContext, request } from '@playwright/test';
+import { APIRequestContext } from '@playwright/test';
 
 // Interface for Login Payload
 interface LoginPayload {
@@ -37,6 +37,7 @@ interface GetProductResponse {
 }
 
 export class ApiUtils {
+    // Define properties for API context and payloads
     apiContext: APIRequestContext;
     loginPayLoad: LoginPayload;
     productsPayload :ProductsPayload;
@@ -53,7 +54,6 @@ export class ApiUtils {
         }); // 200, 201
         const loginResponseJson = await loginResponse.json();
         const token : string = loginResponseJson.token;
-        console.log(token);
         return token;
     }
  
@@ -93,7 +93,6 @@ export class ApiUtils {
         });
  
         const orderResponseJson = await orderResponse.json();
-        console.log(orderResponseJson);
         const orderId = orderResponseJson.orders[0];
         response.orderId = orderId;
  
