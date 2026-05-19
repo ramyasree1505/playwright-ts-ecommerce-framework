@@ -28,17 +28,30 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Install Allure
+        run: npm install -g allure-commandline
+
       - name: Install Browsers
         run: npx playwright install --with-deps
 
       - name: Run Local Playwright Tests
         env:
           CI: true
-          BROWSER: ${{ matrix.browser }}
           RETRIES: 2
           PARALLEL_THREAD: 2
           BASE_URL: https://rahulshettyacademy.com/client/#/auth/login
           REST_API_BASE_URL: https://rahulshettyacademy.com/client
           Timeout: 30000
 
-        run: npx playwright test --workers=2
+        run: npx playwright test --project=${{ matrix.browser }} --workers=2
+      
+      - name: Generate Allure Report
+        if: always()
+        run: allure generate allure-results --clean -o allure-report
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report-${{ matrix.browser }}
+          path: allure-report/
