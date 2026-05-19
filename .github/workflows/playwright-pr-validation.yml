@@ -1,0 +1,44 @@
+name: Playwright PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  local-test:
+
+    strategy:
+      matrix:
+        browser: [chromium, firefox]
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Local Playwright Tests
+        env:
+          CI: true
+          BROWSER: ${{ matrix.browser }}
+          RETRIES: 2
+          PARALLEL_THREAD: 2
+          BASE_URL: https://rahulshettyacademy.com/client/#/auth/login
+          REST_API_BASE_URL: https://rahulshettyacademy.com/client
+          Timeout: 30000
+
+        run: npx playwright test --workers=2
