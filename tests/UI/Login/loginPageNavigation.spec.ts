@@ -2,7 +2,7 @@ import { test, expect } from '../../../fixtures/basefixture';
 
 test.describe('Page Navigation', () => {
 
-  test('should navigate to login page successfully', async ({ page }) => {
+  test('should navigate to login page successfully', async ({ loginPage, page }) => {
     await expect(page).toHaveURL(/auth\/login/);
   });
 
