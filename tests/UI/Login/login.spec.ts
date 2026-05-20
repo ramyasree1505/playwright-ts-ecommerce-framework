@@ -1,5 +1,6 @@
 import { test, expect } from '../../../fixtures/basefixture';
 import { LoginPage } from '../../../src/pages/loginpage';
+import { env } from '../../../config/env';
 import { loginTestData } from '../../../src/testData/login.testdata';
 
 test.describe('Login Functionality', () => {
@@ -14,8 +15,8 @@ test.describe('Login Functionality', () => {
 
   test('should login successfully with valid credentials', async ({ page }) => {
     await loginPage.login(
-      loginTestData.validEmail,
-      loginTestData.validPassword
+      env.username,
+      env.password
     );
 
     await page.waitForURL('**/dashboard/**');
@@ -25,7 +26,7 @@ test.describe('Login Functionality', () => {
   test('should show error for invalid email address', async ({ page }) => {
     await loginPage.login(
       loginTestData.invalidEmail,
-      loginTestData.validPassword
+      env.password
     );
 
     await expect(loginPage.errorMessage).toBeVisible();
@@ -35,7 +36,7 @@ test.describe('Login Functionality', () => {
 
   test('should show error for invalid password', async ({ page }) => {
     await loginPage.login(
-      loginTestData.validEmail,
+      env.username,
       loginTestData.invalidPassword
     );
 
