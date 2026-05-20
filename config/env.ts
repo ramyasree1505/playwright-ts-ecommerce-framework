@@ -1,8 +1,12 @@
 import dotenv from 'dotenv';
 
-// Load local env file only when NOT running in CI
+const environment =
+  process.env.TEST_ENV || 'qa';
+
 if (!process.env.CI) {
-  dotenv.config({ path: './config/env.qa' });
+  dotenv.config({
+    path: `./config/env.${environment}`
+  });
 }
 
 const parseNumber = (
@@ -10,33 +14,23 @@ const parseNumber = (
   fallback: number
 ) => {
   const parsed = Number(value);
-  return Number.isNaN(parsed) ? fallback : parsed;
+  return Number.isNaN(parsed)
+    ? fallback
+    : parsed;
 };
 
-export const BROWSER = process.env.BROWSER || 'chrome';
+class Environment {
+  readonly parallelThread =
+    parseNumber(
+      process.env.PARALLEL_THREAD,
+      2
+    );
+  readonly timeout = parseNumber(process.env.Timeout, 30000);
+  readonly retries = parseNumber(process.env.RETRIES, 0);
+  readonly baseURL = process.env.BASE_URL!;
+  readonly username = process.env.USERNAME!;
+  readonly password = process.env.PASSWORD!;
+  readonly browser = process.env.BROWSER || 'chromium';
+}
 
-export const RETRIES = parseNumber(process.env.RETRIES, 0);
-
-export const PARALLEL_THREAD = parseNumber(
-  process.env.PARALLEL_THREAD,
-  3
-);
-
-export const BASE_URL = process.env.BASE_URL!;
-
-export const Timeout = parseNumber(
-  process.env.Timeout,
-  30000
-);
-
-export const REST_API_BASE_URL =
-  process.env.REST_API_BASE_URL!;
-
-export const env = {
-  BROWSER,
-  RETRIES,
-  PARALLEL_THREAD,
-  BASE_URL,
-  REST_API_BASE_URL,
-  Timeout,
-};
+export const env = new Environment();
