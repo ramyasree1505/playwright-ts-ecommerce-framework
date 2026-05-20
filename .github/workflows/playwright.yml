@@ -22,7 +22,8 @@ on:
 
 jobs:
   test:
-    environment: ${{ github.event.inputs.environment }}
+    environment:
+      name: ${{ github.event.inputs.environment || 'qa' }}
 
     runs-on: ubuntu-latest
 
@@ -53,7 +54,7 @@ jobs:
         env:
           CI: true
 
-          TEST_ENV: ${{ github.event.inputs.environment }}
+          TEST_ENV: ${{ github.event.inputs.environment || 'qa'}}
 
           RETRIES: 2
 
