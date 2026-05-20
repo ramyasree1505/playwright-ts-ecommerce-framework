@@ -5,7 +5,7 @@ const environment =
 
 if (!process.env.CI) {
   dotenv.config({
-    path: `./config/env.${environment}`
+    path: `./config/.env.${environment}`
   });
 }
 

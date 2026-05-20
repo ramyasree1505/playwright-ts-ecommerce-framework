@@ -11,7 +11,7 @@ export const test = base.extend<FixtureBase>({
 
         // Initialize the LoginPage with the provided page object.
         const loginPage = new LoginPage(page);
-        await loginPage.goto('/');
+        await loginPage.goto();
         // Use the initialized loginPage in the tests.
         await use(loginPage);
     }

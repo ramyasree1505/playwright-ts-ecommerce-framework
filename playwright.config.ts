@@ -9,10 +9,10 @@ export default defineConfig({
   expect: {
     timeout: 5000
   },
-
   retries: env.retries,
   workers: env.parallelThread,
   reporter: [
+    ['html'],
     ['list'],
     ['allure-playwright']
   ],
@@ -35,11 +35,11 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox']
-      }
-    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox']
+    //   }
+    // },
   ],
 });
