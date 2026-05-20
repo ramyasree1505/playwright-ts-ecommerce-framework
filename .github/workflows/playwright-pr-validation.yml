@@ -36,6 +36,7 @@ jobs:
           CI: true
           RETRIES: 2
           PARALLEL_THREAD: 2
+          TEST_ENV: qa
           BASE_URL: ${{ vars.BASE_URL }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
