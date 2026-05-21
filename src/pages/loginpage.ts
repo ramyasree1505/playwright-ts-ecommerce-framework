@@ -21,8 +21,8 @@ export class LoginPage {
     this.errorMessage = this.locators.errorMessage;
   }
 
-  async goto(baseUrl: string = '') {
-    await this.page.goto(baseUrl);
+  async goto() {
+    await this.page.goto('/client/#/auth/login');
   }
 
   async enterEmail(email: string) {

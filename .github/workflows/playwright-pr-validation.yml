@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-
   local-test:
-
+    environment: qa
     strategy:
       matrix:
         browser: [chromium, firefox]
@@ -16,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -39,12 +37,14 @@ jobs:
           CI: true
           RETRIES: 2
           PARALLEL_THREAD: 2
-          BASE_URL: https://rahulshettyacademy.com/client/#/auth/login
-          REST_API_BASE_URL: https://rahulshettyacademy.com/client
+          TEST_ENV: qa
+          BASE_URL: ${{ vars.BASE_URL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
           Timeout: 30000
 
         run: npx playwright test --project=${{ matrix.browser }} --workers=2
-      
+
       - name: Generate Allure Report
         if: always()
         run: allure generate allure-results --clean -o allure-report
