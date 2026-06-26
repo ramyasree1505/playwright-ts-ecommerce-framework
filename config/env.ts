@@ -28,8 +28,8 @@ class Environment {
   readonly timeout = parseNumber(process.env.Timeout, 30000);
   readonly retries = parseNumber(process.env.RETRIES, 0);
   readonly baseURL = process.env.BASE_URL!;
-  readonly username = process.env.APP_USERNAME!;
-  readonly password = process.env.APP_PASSWORD!;
+  readonly username = process.env.USERNAME!;
+  readonly password = process.env.PASSWORD!;
   readonly browser = process.env.BROWSER || 'chromium';
 }
 
