@@ -39,8 +39,8 @@ jobs:
           PARALLEL_THREAD: 2
           TEST_ENV: qa
           BASE_URL: ${{ vars.BASE_URL }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME: ${{ secrets.APP_USERNAME }}
+          PASSWORD: ${{ secrets.APP_PASSWORD }}
           Timeout: 30000
 
         run: npx playwright test --project=${{ matrix.browser }} --workers=2
