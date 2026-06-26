@@ -1,9 +1,11 @@
+import { env } from "../../../config/env";
+
 type LoginPayload = {
   userEmail: string;
   userPassword: string;
 };
 
 export const loginPayLoad: LoginPayload = {
-  userEmail: "anshika@gmail.com",
-  userPassword: "Iamking@000"
+  userEmail: env.username,
+  userPassword: env.password
 };
