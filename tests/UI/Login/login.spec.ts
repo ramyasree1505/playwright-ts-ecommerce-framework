@@ -5,15 +5,13 @@ import { loginTestData } from '../../../src/testData/login.testdata';
 
 test.describe('Login Functionality', () => {
   let loginPage: LoginPage;
-
-  test.beforeEach(async ({ loginPage: lp }) => {
-
-    // Assigning the loginPage instance from the fixture to the local variable for use in the tests.
-    loginPage = lp;
-
+  
+  test.beforeEach(async ({page}) => {
+    await page.goto('/client/#/auth/login');
+    loginPage = new LoginPage(page);
   });
 
-  test(' should login successfully with valid credentials', async ({ page }) => {
+  test('Verify user should login successfully with valid credentials', async ({ page }) => {
     await loginPage.login(
       env.username,
       env.password
@@ -23,7 +21,7 @@ test.describe('Login Functionality', () => {
     await expect(page).toHaveURL(/\/dashboard\/dash$/);
   });
 
-  test('should show error for invalid email address', async ({ page }) => {
+  test('Verify user should see error for invalid email address', async ({ page }) => {
     await loginPage.login(
       loginTestData.invalidEmail,
       env.password
@@ -34,7 +32,7 @@ test.describe('Login Functionality', () => {
     await expect(page).toHaveURL(/auth\/login/);
   });
 
-  test('should show error for invalid password', async ({ page }) => {
+  test('Verify user should see error for invalid password', async ({ page }) => {
     await loginPage.login(
       env.username,
       loginTestData.invalidPassword
@@ -45,7 +43,7 @@ test.describe('Login Functionality', () => {
     await expect(page).toHaveURL(/auth\/login/);
   });
 
-  test('should show error for invalid credentials', async ({ page }) => {
+  test('Verify user should see error for invalid credentials', async ({ page }) => {
     await loginPage.login(
       loginTestData.invalidEmail,
       loginTestData.invalidPassword

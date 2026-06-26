@@ -64,9 +64,9 @@ jobs:
 
           Timeout: 30000
 
-          USERNAME: ${{ secrets.USERNAME }}
+          USERNAME: ${{ secrets.APP_USERNAME }}
 
-          PASSWORD: ${{ secrets.PASSWORD }}
+          PASSWORD: ${{ secrets.APP_PASSWORD }}
 
           PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
 
