@@ -1,7 +1,7 @@
 import { test as base } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { LoginPage } from '../src/pages/loginpage';
-import { env } from '../config/env';
+import { env } from '../src/config/env';
 
 type FixtureBase = {
     loginPage: LoginPage;

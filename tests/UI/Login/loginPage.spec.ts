@@ -1,4 +1,4 @@
-import { env } from '../../../config/env';
+import { env } from '../../../src/config/env';
 import { test, expect } from '../../../fixtures/basefixture';
 import { LoginPage } from '../../../src/pages/loginpage';
 

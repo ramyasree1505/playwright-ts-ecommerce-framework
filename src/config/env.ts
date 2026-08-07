@@ -1,12 +1,26 @@
 import dotenv from 'dotenv';
+import path from 'path';
 
 const environment =
   process.env.TEST_ENV || 'qa';
 
 if (!process.env.CI) {
+  const envPath = path.resolve(
+    __dirname,
+    '../../config/.env.' + environment
+  );
+
+  console.log('Loading env from:', envPath);
+
   dotenv.config({
-    path: `./config/.env.${environment}`
+    path: envPath
   });
+
+  console.log('USERNAME:', process.env.APP_USERNAME);
+  console.log(
+    'PASSWORD exists:',
+    !!process.env.APP_PASSWORD
+  );
 }
 
 const parseNumber = (
@@ -28,8 +42,8 @@ class Environment {
   readonly timeout = parseNumber(process.env.Timeout, 30000);
   readonly retries = parseNumber(process.env.RETRIES, 0);
   readonly baseURL = process.env.BASE_URL!;
-  readonly username = process.env.USERNAME!;
-  readonly password = process.env.PASSWORD!;
+  readonly username = process.env.APP_USERNAME!;
+  readonly password = process.env.APP_PASSWORD!;
   readonly browser = process.env.BROWSER || 'chromium';
 }
 

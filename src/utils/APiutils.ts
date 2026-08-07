@@ -1,4 +1,5 @@
 import { APIRequestContext } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 // Interface for Login Payload
 interface LoginPayload {
@@ -52,8 +53,11 @@ export class ApiUtils {
         const loginResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", {
             data: this.loginPayLoad
         }); // 200, 201
+        // Verify API status
+        expect(loginResponse.ok()).toBeTruthy();
         const loginResponseJson = await loginResponse.json();
-        const token : string = loginResponseJson.token;
+        const token: string = loginResponseJson.token;
+        console.log(loginResponseJson);
         return token;
     }
  
@@ -70,12 +74,23 @@ export class ApiUtils {
                 'Authorization': response.token,
                 'Content-Type': 'application/json'
             }
-        }); // 200, 201
+        });
+
+        // Verify API status
+        if (!getProductsResponse.ok()) {
+            throw new Error(
+                `API failed with status ${getProductsResponse.status()}`
+            );
+        }
         const getProductsResponseJson = await getProductsResponse.json();
-        const productIds : string = getProductsResponseJson.data.find((product: any) => 
-            product.productName === "ADIDAS ORIGINAL")._id;
-        response.productId = productIds;
-        return response.productId;
+        const product = getProductsResponseJson.data?.find((product: any) =>
+            product.productName === "ADIDAS ORIGINAL"
+        );
+
+        if (!product) {
+            throw new Error("Product not found");
+        }
+        return product._id;
     }
  
     async createOrder(orderPayLoad : OrderPayload) : Promise<CreateOrderResponse> {

@@ -1,6 +1,6 @@
 import { test, expect } from '../../../fixtures/basefixture';
 import { LoginPage } from '../../../src/pages/loginpage';
-import { env } from '../../../config/env';
+import { env } from '../../../src/config/env';
 import { loginTestData } from '../../../src/testData/login.testdata';
 
 test.describe('Login Functionality', () => {
