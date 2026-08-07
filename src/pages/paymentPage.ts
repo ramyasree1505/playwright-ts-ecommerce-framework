@@ -2,7 +2,7 @@ import { type Page, type Locator } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { PaymentPageLocators } from '../locators/paymentMethod.locators';
 import { paymentTestData } from '../../src/testData/PaymentMethod.testdata';
-import { env } from '../../config/env';
+import { env } from '../config/env';
 
 export class PaymentPage {
     readonly page: Page;

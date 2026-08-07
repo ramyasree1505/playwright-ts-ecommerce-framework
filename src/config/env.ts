@@ -1,12 +1,26 @@
 import dotenv from 'dotenv';
+import path from 'path';
 
 const environment =
   process.env.TEST_ENV || 'qa';
 
 if (!process.env.CI) {
+  const envPath = path.resolve(
+    __dirname,
+    '../../config/.env.' + environment
+  );
+
+  console.log('Loading env from:', envPath);
+
   dotenv.config({
-    path: `./config/.env.${environment}`
+    path: envPath
   });
+
+  console.log('USERNAME:', process.env.USERNAME);
+  console.log(
+    'PASSWORD exists:',
+    !!process.env.PASSWORD
+  );
 }
 
 const parseNumber = (
